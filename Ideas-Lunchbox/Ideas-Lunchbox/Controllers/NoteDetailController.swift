@@ -4,11 +4,9 @@ protocol NoteDelegate {
     func saveNewNote(title: String, date: Date, text: String)
 }
 
-
 class NoteDetailController: UIViewController {
     
     // MARK: PROPERTIES
-    
     let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, YYYY hh:mm"
@@ -27,9 +25,13 @@ class NoteDetailController: UIViewController {
     fileprivate var textView: UITextView = {
         let textField = UITextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.text = "Add your notes"
+        textField.text = "Add your ideas in here"
         textField.isEditable = true
-        textField.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        textField.textColor = .blue
+        textField.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
+        textField.isSelectable = true
+        
+        textField.font = UIFont.systemFont(ofSize: 21, weight: .medium)
         return textField
     }()
     
@@ -69,26 +71,26 @@ class NoteDetailController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let items: [UIBarButtonItem] = [
-            UIBarButtonItem(barButtonSystemItem: .organize, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil)
-        ]
-        
-        self.toolbarItems = items
-       
-        let topItems: [UIBarButtonItem] = [
-            UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .action, target: nil, action: nil)
-        ]
-        
-        self.navigationItem.setRightBarButtonItems(topItems, animated: false)
+//        let items: [UIBarButtonItem] = [
+////            UIBarButtonItem(barButtonSystemItem: .organize, target: nil, action: nil),
+////            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+////            UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil),
+////            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+////            UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil),
+////            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+////            UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil),
+////            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+////            UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil)
+//        ]
+//
+//        self.toolbarItems = items
+//
+//        let topItems: [UIBarButtonItem] = [
+//            UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil),
+//            UIBarButtonItem(barButtonSystemItem: .action, target: nil, action: nil)
+//        ]
+//
+//        self.navigationItem.setRightBarButtonItems(topItems, animated: false)
     }
     
     // MARK: FUNCTIONS
@@ -100,10 +102,13 @@ class NoteDetailController: UIViewController {
         dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
-        textView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor).isActive = true
+        textView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 30).isActive = true
         textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        textView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -640).isActive = true
+        
+        // Add text description text field here!
+        
         
     }
     

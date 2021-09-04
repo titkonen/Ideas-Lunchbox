@@ -1,21 +1,5 @@
 import UIKit
 
-//let firstFolderNotes = [
-//    Note(title: "UITableViews", date: Date(), text: "Tableviews use protocols to receive data"),
-//    Note(title: "Collection views", date: Date(), text: "Collection views can be customize to use protocols to receive data"),
-//    Note(title: "Flow layouts", date: Date(), text: "Flow layouts can use protocols to receive data")
-//]
-//
-//let secondFolderNotes = [
-//    Note(title: "Detail Views", date: Date(), text: "Detail views use protocols to receive data"),
-//    Note(title: "Second views", date: Date(), text: "Second views can be customize to use protocols to receive data"),
-//]
-//
-//var noteFolder: [NoteFolder] = [
-//    NoteFolder(title: "Course Notes", notes: firstFolderNotes),
-//    NoteFolder(title: "Social media", notes: secondFolderNotes),
-//]
-
 var noteFolders = [NoteFolder]() /// noteFolders is the instance reference to point at
 
 class FoldersController: UITableViewController {
@@ -26,7 +10,7 @@ class FoldersController: UITableViewController {
     fileprivate let headerView: UIView = {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
         let label = UILabel(frame: CGRect(x: 20, y: 15, width: 100, height: 20))
-        label.text = "ICLOUD"
+        label.text = "FOLDERS"
         label.font = UIFont.systemFont(ofSize: 13, weight: .light)
         label.textColor = .darkGray
         headerView.addBorder(toSide: .bottom, withColor: UIColor.lightGray.withAlphaComponent(0.5).cgColor, andThickness: 0.3)
@@ -39,7 +23,7 @@ class FoldersController: UITableViewController {
         super.viewDidLoad()
         
         //view.backgroundColor = UIColor.init(rgb: 0x00FFFF)
-        navigationItem.title = "Folders"
+        navigationItem.title = "Ideas"
         
         noteFolders = CoreDataManager.shared.fetchNoteFolders() // Fetching data
         
@@ -51,13 +35,13 @@ class FoldersController: UITableViewController {
         
         self.navigationController?.setToolbarHidden(false, animated: true)
         
-        let items: [UIBarButtonItem] = [
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "New Folder", style: .done, target: self, action: #selector(self.handleAddNewFolder))
-        ]
-        self.toolbarItems = items
+//        let items: [UIBarButtonItem] = [
+//            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+//            UIBarButtonItem(title: "New Folder", style: .done, target: self, action: #selector(self.handleAddNewFolder))
+//        ]
+//        self.toolbarItems = items
         
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
+        let editButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.handleAddNewFolder))
         self.navigationItem.setRightBarButtonItems([editButton], animated: false)
         self.navigationController?.toolbar.tintColor = .primaryColor
         self.navigationController?.navigationBar.tintColor = UIColor.primaryColor
@@ -72,7 +56,7 @@ class FoldersController: UITableViewController {
     
     // MARK: FUNCTIONS
     @objc fileprivate func handleAddNewFolder() {
-        let addAlert = UIAlertController(title: "New Folder", message: "Enter a name for this folder.", preferredStyle: .alert)
+        let addAlert = UIAlertController(title: "New Idea Folder", message: "Enter a name for this idea folder.", preferredStyle: .alert)
         
         present(addAlert, animated: true)
         
@@ -132,6 +116,7 @@ class FoldersController: UITableViewController {
 // MARK: EXTENSION - TableView Data Source
 extension FoldersController {
     
+    // MARK: DELETING
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (rowAction, indexPath) in
             
@@ -170,6 +155,3 @@ extension FoldersController {
     }
     
 }
-
-//cell.label.text = folderForRow.title
-//cell.countLabel.text = String(folderForRow.notes.count)

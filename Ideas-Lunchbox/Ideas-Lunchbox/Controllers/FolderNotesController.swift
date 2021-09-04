@@ -31,7 +31,7 @@ class FolderNotesController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Folder notes"
+        self.navigationItem.title = "List of ideas"
         
         setupTableView()
         setupSearchBar()
@@ -41,9 +41,9 @@ class FolderNotesController: UITableViewController, UISearchBarDelegate {
         super.viewWillAppear(animated)
         
         let items: [UIBarButtonItem] = [
-            UIBarButtonItem(barButtonSystemItem: .organize, target: nil, action: nil),
+           // UIBarButtonItem(barButtonSystemItem: .organize, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "\(notes.count) Notes", style: .done, target: nil, action: nil),
+            UIBarButtonItem(title: "\(notes.count) Ideas", style: .done, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(self.createNewNote))
         ]
