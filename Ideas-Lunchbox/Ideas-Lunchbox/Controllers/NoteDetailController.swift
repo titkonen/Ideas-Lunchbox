@@ -27,7 +27,7 @@ class NoteDetailController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.text = "Add your ideas in here"
         textField.isEditable = true
-        textField.textColor = .blue
+        textField.textColor = .purple
         textField.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
         textField.isSelectable = true
         

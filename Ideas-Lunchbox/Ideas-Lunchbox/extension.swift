@@ -2,7 +2,7 @@ import UIKit
 
 extension UIColor {
     
-    static var primaryColor = UIColor.init(rgb: 0xE0BE53)
+    static var primaryColor = UIColor.init(rgb: 0xCC33CC)
     
     convenience init(red: Int, green: Int, blue: Int) {
         self.init(red: CGFloat(red)/255.0, green: CGFloat(green)/255.0, blue: CGFloat(blue)/255.0, alpha: 1)
