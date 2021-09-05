@@ -1,15 +1,5 @@
 import UIKit
 
-// MARK: EXTENSION NoteDelegate
-extension FolderNotesController: NoteDelegate {
-    func saveNewNote(title: String, date: Date, text: String) {
-        let newNote = CoreDataManager.shared.createNewNote(title: title, date: date, text: text, noteFolder: self.folderData) ///Creates new note to the list and coredata
-        notes.append(newNote)
-        filteredNotes.append(newNote)
-        self.tableView.insertRows(at: [IndexPath(row: notes.count - 1, section: 0)], with: .fade)
-    }
-}
-
 class FolderNotesController: UITableViewController, UISearchBarDelegate {
     
     // MARK: PROPERTIES
@@ -98,13 +88,13 @@ class FolderNotesController: UITableViewController, UISearchBarDelegate {
 // MARK: EXTENSION - TableView Data Source
 extension FolderNotesController {
     
+    // MARK: DELETING
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         var actions = [UITableViewRowAction]()
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
             print("trying to delete item at indexpath", indexPath)
             
-            // MARK: DELETING
             let targetRow = indexPath.row
             
             if CoreDataManager.shared.deleteNote(note: self.notes[targetRow]) {
@@ -143,4 +133,14 @@ extension FolderNotesController {
         navigationController?.pushViewController(noteDetailController, animated: true)
     }
     
+}
+
+// MARK: EXTENSION NoteDelegate
+extension FolderNotesController: NoteDelegate {
+    func saveNewNote(title: String, date: Date, text: String) {
+        let newNote = CoreDataManager.shared.createNewNote(title: title, date: date, text: text, noteFolder: self.folderData) ///Creates new note to the list and coredata
+        notes.append(newNote)
+        filteredNotes.append(newNote)
+        self.tableView.insertRows(at: [IndexPath(row: notes.count - 1, section: 0)], with: .fade)
+    }
 }

@@ -6,7 +6,7 @@ class FolderCell: UITableViewCell {
         didSet {
             label.text = folderData.title
             let count = CoreDataManager.shared.fetchNotes(from: folderData).count
-            countLabel.text = String(count)
+            countLabel.text = String(count) + "   "
         }
     }
     
@@ -19,9 +19,9 @@ class FolderCell: UITableViewCell {
     
     fileprivate var countLabel: UILabel = {
         let label = UILabel()
-        label.text = "5"
+        label.text = "5" 
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-      
+        
         return label
     }()
     
@@ -29,6 +29,8 @@ class FolderCell: UITableViewCell {
         let s = UIStackView(arrangedSubviews: [label, countLabel])
         s.translatesAutoresizingMaskIntoConstraints = false
         s.axis = .horizontal
+        //s.spacing = -10 /// Testing
+        
         return s
     }()
     

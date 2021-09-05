@@ -36,7 +36,8 @@ class NoteCell: UITableViewCell {
         let label = UILabel()
         label.text = "The note text will go here for note preview..."
         label.font = UIFont.systemFont(ofSize: 13, weight: .light)
-        label.textColor = UIColor.gray.withAlphaComponent(0.8)
+        label.textColor = .gray
+        //label.textColor = UIColor.gray.withAlphaComponent(0.8)
         return label
     }()
     

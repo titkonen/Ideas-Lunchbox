@@ -103,11 +103,11 @@ struct CoreDataManager {
     }
     
     // MARK:  Update notes
-    func saveUpdatedNote(note: Note, newText: String) {
+    func saveUpdatedNote(note: Note, newText: String, newPreview: String) {
         let context = persistentContainer.viewContext
         
         note.title = newText
-        note.text = newText
+        note.text = newPreview
         note.date = Date()
         
         do {

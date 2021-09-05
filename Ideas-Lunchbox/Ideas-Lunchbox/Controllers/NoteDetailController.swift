@@ -16,6 +16,7 @@ class NoteDetailController: UIViewController {
     var noteData: Note! {
         didSet {
             textView.text = noteData.title
+            textView2.text = noteData.text ///Preview
             dateLabel.text = dateFormatter.string(from: noteData.date ?? Date())
         }
     }
@@ -25,13 +26,29 @@ class NoteDetailController: UIViewController {
     fileprivate var textView: UITextView = {
         let textField = UITextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.text = "Add your ideas in here"
+        textField.text = "Add your title in here"
         textField.isEditable = true
-        textField.textColor = .purple
+        textField.textColor = .black
         textField.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
         textField.isSelectable = true
-        
         textField.font = UIFont.systemFont(ofSize: 21, weight: .medium)
+        textField.clipsToBounds = true
+        textField.layer.cornerRadius = 8
+        
+        return textField
+    }()
+    
+    fileprivate var textView2: UITextView = {
+        let textField = UITextView()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.text = "Add your additional text here"
+        textField.isEditable = true
+        textField.textColor = .black
+        textField.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
+        textField.isSelectable = true
+        textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        textField.clipsToBounds = true
+        textField.layer.cornerRadius = 8
         return textField
     }()
     
@@ -52,19 +69,31 @@ class NoteDetailController: UIViewController {
         
         view.backgroundColor = .white
         setupUI()
+        
+//        func textViewDidBeginEditing(_ textView: UITextView) {
+//            if textView.textColor == UIColor.lightGray {
+//                textView.text = nil
+//                textView.textColor = UIColor.black
+//            }
+//        }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if self.noteData == nil {
-            delegate?.saveNewNote(title: textView.text, date: Date(), text: textView.text)
+            delegate?.saveNewNote(title: textView.text, date: Date(), text: textView2.text)
         } else {
-            // update our note here
+            /// updates title text
             guard let newText = self.textView.text else {
                 return
             }
-            CoreDataManager.shared.saveUpdatedNote(note: self.noteData, newText: newText)
+            /// Updates Description text
+            guard let newPreview = self.textView2.text else {
+                return
+            }
+            CoreDataManager.shared.saveUpdatedNote(note: self.noteData, newText: newText, newPreview: newPreview)
         }
     }
     
@@ -97,6 +126,7 @@ class NoteDetailController: UIViewController {
     fileprivate func setupUI() {
         view.addSubview(dateLabel)
         view.addSubview(textView)
+        view.addSubview(textView2)
         
         dateLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 90).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -107,9 +137,15 @@ class NoteDetailController: UIViewController {
         textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         textView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -640).isActive = true
         
-        // Add text description text field here!
-        
+        textView2.topAnchor.constraint(equalTo: view.topAnchor, constant: 280).isActive = true
+        textView2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        textView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        textView2.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -140).isActive = true
+                
         
     }
+    
+    /// Text field testing
+
     
 }
