@@ -69,14 +69,6 @@ class NoteDetailController: UIViewController {
         
         view.backgroundColor = .white
         setupUI()
-        
-//        func textViewDidBeginEditing(_ textView: UITextView) {
-//            if textView.textColor == UIColor.lightGray {
-//                textView.text = nil
-//                textView.textColor = UIColor.black
-//            }
-//        }
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -100,19 +92,19 @@ class NoteDetailController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        let items: [UIBarButtonItem] = [
-////            UIBarButtonItem(barButtonSystemItem: .organize, target: nil, action: nil),
-////            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-////            UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil),
-////            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-////            UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil),
-////            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-////            UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil),
-////            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-////            UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil)
-//        ]
-//
-//        self.toolbarItems = items
+        let items: [UIBarButtonItem] = [
+//            UIBarButtonItem(barButtonSystemItem: .organize, target: nil, action: nil),
+//            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+//            UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil),
+//            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+//            UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil),
+//            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+//            UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
+        ]
+
+        self.toolbarItems = items
 //
 //        let topItems: [UIBarButtonItem] = [
 //            UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil),
