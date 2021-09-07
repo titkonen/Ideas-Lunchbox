@@ -4,7 +4,7 @@ protocol NoteDelegate {
     func saveNewNote(title: String, date: Date, text: String)
 }
 
-class NoteDetailController: UIViewController {
+class NoteDetailController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // MARK: PROPERTIES
     let dateFormatter: DateFormatter = {
@@ -62,6 +62,19 @@ class NoteDetailController: UIViewController {
         return label
     }()
     
+    /// Imageview
+    fileprivate lazy var saveImageView: UIImageView = {
+        let imgView = UIImageView()
+        imgView.backgroundColor = .lightGray
+        imgView.layer.cornerRadius = 8
+        imgView.frame.size.width = 375
+        imgView.frame.size.height = 240
+        imgView.contentMode = UIView.ContentMode.scaleAspectFill
+        imgView.frame.origin = CGPoint(x: 20, y: 520)
+        //imgView.center = self.view.center
+        return imgView
+    }()
+    
     
     // MARK: LIFE CYCLE
     override func viewDidLoad() {
@@ -69,6 +82,9 @@ class NoteDetailController: UIViewController {
         
         view.backgroundColor = .white
         setupUI()
+        
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraButtonPressed))
+        saveImageView.layer.cornerRadius = 8
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -101,7 +117,7 @@ class NoteDetailController: UIViewController {
 //            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
 //            UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .camera, target: nil, action: nil)
+            UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraButtonPressed))
         ]
 
         self.toolbarItems = items
@@ -115,10 +131,27 @@ class NoteDetailController: UIViewController {
     }
     
     // MARK: FUNCTIONS
+    @objc func cameraButtonPressed() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let userPickedImage = info[.editedImage] as? UIImage else { return }
+        saveImageView.image = userPickedImage
+
+        picker.dismiss(animated: true)
+    }
+    
+    
     fileprivate func setupUI() {
         view.addSubview(dateLabel)
         view.addSubview(textView)
         view.addSubview(textView2)
+        view.addSubview(saveImageView)
         
         dateLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 90).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -132,8 +165,12 @@ class NoteDetailController: UIViewController {
         textView2.topAnchor.constraint(equalTo: view.topAnchor, constant: 280).isActive = true
         textView2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         textView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        textView2.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -140).isActive = true
+        textView2.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -440).isActive = true
                 
+        saveImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 400).isActive = true
+        saveImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        saveImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        saveImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -160).isActive = true
         
     }
     
