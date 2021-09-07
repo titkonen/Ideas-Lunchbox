@@ -34,7 +34,6 @@ class NoteDetailController: UIViewController, UINavigationControllerDelegate, UI
         textField.font = UIFont.systemFont(ofSize: 21, weight: .medium)
         textField.clipsToBounds = true
         textField.layer.cornerRadius = 8
-        
         return textField
     }()
     
@@ -83,7 +82,7 @@ class NoteDetailController: UIViewController, UINavigationControllerDelegate, UI
         view.backgroundColor = .white
         setupUI()
         
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraButtonPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveImage))
         saveImageView.layer.cornerRadius = 8
     }
     
@@ -131,6 +130,13 @@ class NoteDetailController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     // MARK: FUNCTIONS
+    @objc func saveImage() {
+        if let imageData = saveImageView.image?.pngData() {
+            CoreDataManager.shared.saveImage(data: imageData)
+        }
+        
+    }
+    
     @objc func cameraButtonPressed() {
         let picker = UIImagePickerController()
         picker.delegate = self

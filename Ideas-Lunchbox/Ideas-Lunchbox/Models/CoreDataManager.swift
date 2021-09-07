@@ -115,9 +115,38 @@ struct CoreDataManager {
         } catch let err {
             print("Failed to update note", err)
         }
+    }
+    
+    // MARK:  Save Image
+    func saveImage(data: Data) {
+        let context = persistentContainer.viewContext
+        
+        let imageInstance = Note(context: context)
+        imageInstance.img = data
+            
+        do {
+            try context.save()
+            print("Image is saved")
+        } catch {
+            print(error.localizedDescription)
+        }
         
     }
     
-    
+    // MARK:  Fetch Image
+    func fetchImage() -> [Note] {
+        let context = persistentContainer.viewContext
+        var fetchingImage = [Note]()
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        
+        do {
+            fetchingImage = try context.fetch(fetchRequest) as! [Note]
+            print("Image is fetched!")
+        } catch {
+            print("Error while fetching the image")
+        }
+        
+        return fetchingImage
+    }
     
 }

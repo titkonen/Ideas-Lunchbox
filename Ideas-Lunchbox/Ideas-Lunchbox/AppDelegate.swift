@@ -3,10 +3,19 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    lazy var applicationDocumentsDirectory: NSURL = {
+    
+    let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    return urls[urls.count-1] as NSURL
+    }()
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         UINavigationBar.appearance().prefersLargeTitles = true
+        
+        print(self.applicationDocumentsDirectory)
         
         return true
     }
